@@ -4,8 +4,8 @@ export const projects = [
     description:
       "A full-stack application to manage personal expenses with CRUD operations, monthly reports, budget alerts, and charts.",
     tech: ["React", "Spring Boot", "MySQL", "REST API", "Chart.js"],
-    github: "https://github.com/ShabinGeorgePS/expense-tracker",
-    demo: "#",
+    github: "https://github.com/dharshan-krishnan/expense-tracker",
+    demo: "https://expense-tracker-wine-tau.vercel.app/",
     image: "https://via.placeholder.com/600x350?text=Expense+Tracker",
   },
   {

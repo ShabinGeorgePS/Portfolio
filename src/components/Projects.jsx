@@ -13,7 +13,8 @@ export default function Projects() {
         {projects.map((project) => (
           <div
             key={project.title}
-            className="bg-zinc-900 p-6 rounded-xl shadow-lg hover:scale-105 hover:shadow-red-500/20 transition duration-300"
+            className="bg-zinc-900 p-6 rounded-xl shadow-lg hover:shadow-red-500/20 transition duration-300 transform hover:scale-105"
+
           >
             <img
               src={project.image}

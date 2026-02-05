@@ -18,7 +18,7 @@ export default function About() {
         <h2 className="text-4xl font-bold mb-5 text-red-500">About Me</h2>
         <p className="text-gray-300 max-w-2xl leading-relaxed">
           I'm <span className="text-red-400 font-semibold">Shabin George</span>,
-          a Computer Science Engineering student at Sri Krishna College of
+          a 3rd year Computer Science Engineering student at Sri Krishna College of
           Technology. I enjoy building full-stack web applications, solving
           complex problems, and exploring cloud, machine learning, and
           cybersecurity.
