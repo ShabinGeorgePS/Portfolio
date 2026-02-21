@@ -1,44 +1,174 @@
+import { useEffect, useRef } from 'react';
+import { FaEnvelope, FaFileDownload, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Contact() {
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const cardsRef = useRef([]);
+  const socialsRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title animation
+      gsap.from(titleRef.current, {
+        y: -50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Description
+      gsap.from(descRef.current, {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: descRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Cards stagger animation
+      gsap.from(cardsRef.current, {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: cardsRef.current[0],
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Social icons animation
+      gsap.from(socialsRef.current.children, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: socialsRef.current,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="contact"
-      className="px-10 py-20 bg-black text-white flex flex-col gap-6"
+      ref={sectionRef}
+      className="px-10 py-20 bg-gradient-to-b from-black to-gray-900 text-white relative"
     >
-      <h2 className="text-4xl font-bold text-red-400">Contact</h2>
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse" />
+      </div>
 
-      <p className="text-gray-300 max-w-2xl">
-        If you&apos;d like to collaborate, discuss opportunities, or know more
-        about my work, feel free to reach out or check my resume.
-      </p>
+      <div className="max-w-4xl mx-auto relative z-10">
+        <h2
+          ref={titleRef}
+          className="text-4xl md:text-5xl font-bold text-red-400 mb-6 text-center"
+        >
+          Let's Connect
+        </h2>
 
-      <div className="flex flex-col md:flex-row gap-4 md:items-center">
-        <div>
-          <p className="text-sm uppercase tracking-wide text-gray-400">
-            Email
-          </p>
-          <a
-            href="mailto:shabingeor6705@gmail.com"
-            className="text-lg text-red-400 hover:text-red-300"
+        <p
+          ref={descRef}
+          className="text-gray-300 max-w-2xl mx-auto text-center text-lg mb-10"
+        >
+          If you'd like to collaborate, discuss opportunities, or know more
+          about my work, feel free to reach out or check my resume.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Email Card */}
+          <div
+            ref={(el) => (cardsRef.current[0] = el)}
+            className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
+            data-testid="contact-email"
           >
-            shabingeorge6705@gmail.com
-          </a>
+            <div className="flex items-center gap-3 mb-3">
+              <FaEnvelope className="text-2xl text-red-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm uppercase tracking-wide text-gray-400">
+                Email
+              </p>
+            </div>
+            <a
+              href="mailto:shabingeorge6705@gmail.com"
+              className="text-lg text-red-400 hover:text-red-300 transition-colors break-all"
+            >
+              shabingeorge6705@gmail.com
+            </a>
+          </div>
+
+          {/* Resume Card */}
+          <div
+            ref={(el) => (cardsRef.current[1] = el)}
+            className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
+            data-testid="contact-resume"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <FaFileDownload className="text-2xl text-red-400 group-hover:scale-110 transition-transform" />
+              <p className="text-sm uppercase tracking-wide text-gray-400">
+                Resume
+              </p>
+            </div>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg font-semibold transition-all shadow-lg shadow-red-500/30 hover:scale-105 active:scale-95"
+            >
+              View Resume (PDF)
+            </a>
+          </div>
         </div>
 
-        <div className="h-px md:h-10 md:w-px bg-zinc-700" />
+        {/* Social Links */}
+        <div ref={socialsRef} className="flex justify-center gap-6 mt-10">
+          {[
+            { icon: FaGithub, href: 'https://github.com/ShabinGeorgePS', label: 'GitHub' },
+            { icon: FaLinkedin, href: 'https://www.linkedin.com/in/shabin-george-185522290', label: 'LinkedIn' },
+          ].map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 flex items-center justify-center bg-zinc-900 border border-red-500/30 rounded-full hover:bg-red-500 hover:border-red-500 transition-all hover:scale-125 hover:rotate-12 active:scale-95"
+              data-testid={`social-${social.label.toLowerCase()}`}
+            >
+              <social.icon className="text-xl" />
+            </a>
+          ))}
+        </div>
 
-        <div>
-          <p className="text-sm uppercase tracking-wide text-gray-400">
-            Resume
+        {/* Footer */}
+        <div className="text-center mt-16 pt-8 border-t border-red-500/20">
+          <p className="text-gray-500">
+            © 2026 Shabin George. All rights reserved.
           </p>
-          <a
-            href="file:///C:/Users/shabi/OneDrive/Desktop/◉_◉/RESUME.pdf"
-            className="inline-block mt-1 px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg font-semibold"
-          >
-            View Resume (PDF)
-          </a>
         </div>
       </div>
     </section>
   );
 }
-

@@ -1,37 +1,77 @@
+import { useEffect, useRef } from 'react';
+import Marquee from "react-fast-marquee";
 import { FaJava } from "react-icons/fa";
 import { SiCplusplus } from "react-icons/si";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Languages() {
+  const titleRef = useRef(null);
+  const sectionRef = useRef(null);
+
   const languages = [
-    { name: "Java", icon: FaJava },
-    { name: "C++", icon: SiCplusplus },
+    { name: "Java", icon: FaJava, desc: "Object-oriented programming, data structures" },
+    { name: "C++", icon: SiCplusplus, desc: "System programming, algorithms" },
   ];
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(titleRef.current, {
+        y: -50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="languages"
-      className="min-h-[60vh] px-10 py-20 bg-black text-white"
+      ref={sectionRef}
+      className="min-h-[60vh] px-10 py-20 bg-black text-white overflow-hidden"
     >
-      <h2 className="text-4xl font-bold mb-10 text-red-400">Languages</h2>
+      <h2
+        ref={titleRef}
+        className="text-4xl md:text-5xl font-bold mb-10 text-red-400 text-center"
+      >
+        Programming Languages
+      </h2>
 
-      <div className="flex flex-wrap gap-8">
-        {languages.map((lang) => (
+      {/* Marquee effect */}
+      <Marquee
+        gradient={false}
+        speed={40}
+        pauseOnHover={true}
+        className="py-8"
+      >
+        {[...languages, ...languages, ...languages].map((lang, index) => (
           <div
-            key={lang.name}
-            className="bg-zinc-900/80 border border-red-500/30 rounded-2xl px-8 py-6 flex items-center gap-4 shadow-lg shadow-red-500/20 hover:-translate-y-2 hover:shadow-red-500/40 transition-transform duration-300"
+            key={index}
+            className="mx-6 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-red-500/30 rounded-2xl px-8 py-6 flex items-center gap-4 shadow-lg hover:shadow-red-500/40 transition-all group min-w-[350px] hover:scale-105"
+            data-testid={index === 0 ? `language-${lang.name.toLowerCase()}` : undefined}
           >
-            <lang.icon className="text-5xl text-red-400" />
+            <div className="transform group-hover:rotate-12 transition-transform duration-300">
+              <lang.icon className="text-5xl text-red-400 group-hover:text-red-300 transition-colors" />
+            </div>
             <div>
-              <p className="text-2xl font-semibold">{lang.name}</p>
-              <p className="text-gray-300 text-sm max-w-xs">
-                Strong foundation in {lang.name} for problem solving, data
-                structures, algorithms, and building real‑world applications.
+              <p className="text-2xl font-semibold group-hover:text-red-300 transition-colors">{lang.name}</p>
+              <p className="text-gray-300 text-sm max-w-xs leading-relaxed">
+                {lang.desc}
               </p>
             </div>
           </div>
         ))}
-      </div>
+      </Marquee>
     </section>
   );
 }
-
