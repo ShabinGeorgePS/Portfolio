@@ -14,45 +14,54 @@ export default function About() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Title animation with ScrollTrigger
-      gsap.from(titleRef.current, {
-        y: -50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          end: "top 50%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      gsap.fromTo(titleRef.current,
+        { y: -50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            end: "top 50%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
       // Image animation
-      gsap.from(imageRef.current, {
-        x: -100,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      gsap.fromTo(imageRef.current,
+        { x: -100, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
       // Content stagger animation
-      gsap.from(contentRef.current.children, {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top 75%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      gsap.fromTo(contentRef.current.children,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 75%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
       // Parallax effect for background
       gsap.to(".about-bg", {
@@ -74,19 +83,39 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="min-h-screen flex flex-col md:flex-row items-center gap-10 px-10 py-20 bg-gray-900 text-white relative overflow-hidden"
+      className="min-h-screen flex flex-col md:flex-row items-center gap-10 px-10 py-20 relative overflow-hidden transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
     >
       {/* Animated background gradient */}
-      <div className="about-bg absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-black opacity-50"></div>
+      <div
+        className="about-bg absolute inset-0 opacity-50"
+        style={{
+          background: "linear-gradient(to bottom right, var(--bg-secondary), var(--bg-secondary), var(--bg-primary))",
+        }}
+      ></div>
 
       {/* Left Image */}
       <div ref={imageRef} className="relative z-10">
         <div className="relative group cursor-pointer">
-          <div className="absolute inset-0 bg-red-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+          <div
+            className="absolute inset-0 rounded-2xl blur-xl group-hover:blur-2xl transition-all"
+            style={{
+              backgroundColor: "var(--accent)",
+              opacity: 0.2,
+            }}
+          ></div>
           <img
             src={profile}
             alt="Shabin George"
-            className="w-60 h-60 rounded-2xl object-cover shadow-2xl border-2 border-red-500/30 relative z-10 group-hover:scale-105 transition-transform duration-300"
+            className="w-60 h-60 rounded-2xl object-cover shadow-2xl relative z-10 group-hover:scale-105 transition-transform duration-300"
+            style={{
+              borderColor: "var(--accent)",
+              borderWidth: "2px",
+              borderOpacity: 0.3,
+            }}
           />
         </div>
       </div>
@@ -95,19 +124,26 @@ export default function About() {
       <div ref={contentRef} className="relative z-10">
         <h2
           ref={titleRef}
-          className="text-4xl md:text-5xl font-bold mb-5 text-red-500"
+          className="text-4xl md:text-5xl font-bold mb-5"
+          style={{ color: "var(--accent)" }}
         >
           About Me
         </h2>
-        <p className="text-gray-300 max-w-2xl leading-relaxed text-lg">
-          I'm <span className="text-red-400 font-semibold">Shabin George</span>,
+        <p
+          className="max-w-2xl leading-relaxed text-lg transition-colors duration-300"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          I'm <span style={{ color: "var(--accent)", fontWeight: "600" }}>Shabin George</span>,
           a 3rd year Computer Science Engineering student at Sri Krishna College of
           Technology. I enjoy building full-stack web applications, solving
           complex problems, and exploring cloud, machine learning, and
           cybersecurity.
         </p>
 
-        <p className="mt-5 text-gray-300 max-w-2xl leading-relaxed text-lg">
+        <p
+          className="mt-5 max-w-2xl leading-relaxed text-lg transition-colors duration-300"
+          style={{ color: "var(--text-secondary)" }}
+        >
           I have hands-on experience with Java, Spring Boot, REST APIs, React,
           MySQL, Docker, and DevOps tools. I'm always learning and creating new
           things to grow as a developer.

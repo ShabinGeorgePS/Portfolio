@@ -37,11 +37,16 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="min-h-screen px-10 py-20 bg-black text-white relative overflow-hidden"
+      className="min-h-screen px-10 py-20 relative overflow-hidden transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
     >
       <h2
         ref={titleRef}
-        className="text-4xl md:text-5xl font-bold mb-10 text-red-400 text-center"
+        className="text-4xl md:text-5xl font-bold mb-10 text-center transition-colors duration-300"
+        style={{ color: "var(--accent)" }}
       >
         Skills & Technologies
       </h2>
@@ -52,13 +57,25 @@ export default function Skills() {
           {[...firstRow, ...firstRow].map((skill, index) => (
             <div
               key={index}
-              className="mx-4 bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl flex flex-col items-center justify-center gap-3 shadow-lg border border-zinc-800 hover:border-red-500/50 transition-all group min-w-[140px] hover:scale-110"
+              className="mx-4 p-6 rounded-xl flex flex-col items-center justify-center gap-3 shadow-lg hover:scale-110 transition-all group min-w-[140px]"
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                borderColor: "var(--accent)",
+                borderWidth: "1px",
+                borderOpacity: 0.3,
+              }}
               data-testid={index === 0 ? `skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}` : undefined}
             >
               <div className="transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
-                <skill.icon className="text-5xl text-red-400 group-hover:text-red-300 transition-colors" />
+                <skill.icon
+                  className="text-5xl transition-colors"
+                  style={{ color: "var(--accent)" }}
+                />
               </div>
-              <p className="text-base font-semibold text-center group-hover:text-red-300 transition-colors">
+              <p
+                className="text-base font-semibold text-center transition-colors"
+                style={{ color: "var(--text-primary)" }}
+              >
                 {skill.name}
               </p>
             </div>
@@ -70,12 +87,24 @@ export default function Skills() {
           {[...secondRow, ...secondRow].map((skill, index) => (
             <div
               key={index}
-              className="mx-4 bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl flex flex-col items-center justify-center gap-3 shadow-lg border border-zinc-800 hover:border-red-500/50 transition-all group min-w-[140px] hover:scale-110"
+              className="mx-4 p-6 rounded-xl flex flex-col items-center justify-center gap-3 shadow-lg hover:scale-110 transition-all group min-w-[140px]"
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                borderColor: "var(--accent)",
+                borderWidth: "1px",
+                borderOpacity: 0.3,
+              }}
             >
               <div className="transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
-                <skill.icon className="text-5xl text-red-400 group-hover:text-red-300 transition-colors" />
+                <skill.icon
+                  className="text-5xl transition-colors"
+                  style={{ color: "var(--accent)" }}
+                />
               </div>
-              <p className="text-base font-semibold text-center group-hover:text-red-300 transition-colors">
+              <p
+                className="text-base font-semibold text-center transition-colors"
+                style={{ color: "var(--text-primary)" }}
+              >
                 {skill.name}
               </p>
             </div>

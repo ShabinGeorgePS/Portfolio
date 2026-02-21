@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { FaEnvelope, FaFileDownload, FaGithub, FaLinkedin } from 'react-icons/fa';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { FaEnvelope, FaFileDownload, FaGithub, FaLinkedin } from "react-icons/fa";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ContactForm from "./ContactForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +11,7 @@ export default function Contact() {
   const titleRef = useRef(null);
   const descRef = useRef(null);
   const cardsRef = useRef([]);
+  const formRef = useRef(null);
   const socialsRef = useRef(null);
 
   useEffect(() => {
@@ -54,6 +56,19 @@ export default function Contact() {
         },
       });
 
+      // Form animation
+      gsap.from(formRef.current, {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
       // Social icons animation
       gsap.from(socialsRef.current.children, {
         scale: 0,
@@ -76,7 +91,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="px-10 py-20 bg-gradient-to-b from-black to-gray-900 text-white relative"
+      className="px-4 sm:px-10 py-20 bg-gradient-to-b from-black to-gray-900 text-white relative"
     >
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -84,33 +99,24 @@ export default function Contact() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <h2
-          ref={titleRef}
-          className="text-4xl md:text-5xl font-bold text-red-400 mb-6 text-center"
-        >
+        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-red-400 mb-6 text-center">
           Let's Connect
         </h2>
 
-        <p
-          ref={descRef}
-          className="text-gray-300 max-w-2xl mx-auto text-center text-lg mb-10"
-        >
-          If you'd like to collaborate, discuss opportunities, or know more
-          about my work, feel free to reach out or check my resume.
+        <p ref={descRef} className="text-gray-300 max-w-2xl mx-auto text-center text-lg mb-12">
+          Have a question or want to work together? Feel free to reach out or download my resume.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Contact Options */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
           {/* Email Card */}
           <div
             ref={(el) => (cardsRef.current[0] = el)}
             className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
-            data-testid="contact-email"
           >
             <div className="flex items-center gap-3 mb-3">
               <FaEnvelope className="text-2xl text-red-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm uppercase tracking-wide text-gray-400">
-                Email
-              </p>
+              <p className="text-sm uppercase tracking-wide text-gray-400">Email</p>
             </div>
             <a
               href="mailto:shabingeorge6705@gmail.com"
@@ -124,13 +130,10 @@ export default function Contact() {
           <div
             ref={(el) => (cardsRef.current[1] = el)}
             className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
-            data-testid="contact-resume"
           >
             <div className="flex items-center gap-3 mb-3">
               <FaFileDownload className="text-2xl text-red-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm uppercase tracking-wide text-gray-400">
-                Resume
-              </p>
+              <p className="text-sm uppercase tracking-wide text-gray-400">Resume</p>
             </div>
             <a
               href="/resume.pdf"
@@ -143,11 +146,24 @@ export default function Contact() {
           </div>
         </div>
 
+        {/* Contact Form */}
+        <div
+          ref={formRef}
+          className="mb-12 bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-8 rounded-xl border border-zinc-800"
+        >
+          <h3 className="text-2xl font-bold text-white mb-6 text-center">Send Me a Message</h3>
+          <ContactForm />
+        </div>
+
         {/* Social Links */}
-        <div ref={socialsRef} className="flex justify-center gap-6 mt-10">
+        <div ref={socialsRef} className="flex justify-center gap-6 mb-12">
           {[
-            { icon: FaGithub, href: 'https://github.com/ShabinGeorgePS', label: 'GitHub' },
-            { icon: FaLinkedin, href: 'https://www.linkedin.com/in/shabin-george-185522290', label: 'LinkedIn' },
+            { icon: FaGithub, href: "https://github.com/ShabinGeorgePS", label: "GitHub" },
+            {
+              icon: FaLinkedin,
+              href: "https://www.linkedin.com/in/shabin-george-185522290",
+              label: "LinkedIn",
+            },
           ].map((social) => (
             <a
               key={social.label}
@@ -155,18 +171,10 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 flex items-center justify-center bg-zinc-900 border border-red-500/30 rounded-full hover:bg-red-500 hover:border-red-500 transition-all hover:scale-125 hover:rotate-12 active:scale-95"
-              data-testid={`social-${social.label.toLowerCase()}`}
             >
               <social.icon className="text-xl" />
             </a>
           ))}
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-16 pt-8 border-t border-red-500/20">
-          <p className="text-gray-500">
-            © 2026 Shabin George. All rights reserved.
-          </p>
         </div>
       </div>
     </section>

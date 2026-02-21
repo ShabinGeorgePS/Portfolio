@@ -71,7 +71,7 @@ export default function ChatBot() {
       <motion.button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/40 border border-red-300/60 text-white text-2xl font-bold"
+        className="fixed bottom-24 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/40 border border-red-300/60 text-white text-2xl font-bold"
         aria-label="Open chat about Shabin"
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.9 }}
@@ -97,76 +97,75 @@ export default function ChatBot() {
       {/* Chat panel */}
       <AnimatePresence>
         {open && (
-          <motion.div 
+          <motion.div
             className="fixed bottom-24 right-6 z-40 w-80 max-w-[90vw] bg-black/95 backdrop-blur-md border border-red-500/40 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3 }}
           >
-          <div className="flex items-center justify-between px-4 py-3 border-b border-red-500/30 bg-gradient-to-r from-red-900/20 to-transparent">
-            <div>
-              <p className="text-sm font-semibold text-red-400">
-                Shabin&apos;s Assistant
-              </p>
-              <p className="text-xs text-gray-400">
-                Ask about skills, projects, or education.
-              </p>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-red-500/30 bg-gradient-to-r from-red-900/20 to-transparent">
+              <div>
+                <p className="text-sm font-semibold text-red-400">
+                  Shabin&apos;s Assistant
+                </p>
+                <p className="text-xs text-gray-400">
+                  Ask about skills, projects, or education.
+                </p>
+              </div>
+              <motion.button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-gray-400 hover:text-gray-200 text-2xl leading-none"
+                aria-label="Close chat"
+                whileHover={{ scale: 1.2, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                ×
+              </motion.button>
             </div>
-            <motion.button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-gray-200 text-2xl leading-none"
-              aria-label="Close chat"
-              whileHover={{ scale: 1.2, rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              ×
-            </motion.button>
-          </div>
 
-          <div className="h-64 overflow-y-auto flex flex-col gap-2 px-3 py-3">
-            <AnimatePresence>
-              {messages.map((m, idx) => (
-                <motion.div
-                  key={idx}
-                  className={`max-w-[80%] px-3 py-2 rounded-xl text-xs ${
-                    m.from === "user"
-                      ? "bg-red-500 text-white self-end rounded-br-none shadow-lg"
-                      : "bg-zinc-800 text-gray-100 self-start rounded-bl-none shadow-lg"
-                  }`}
-                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {m.text}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+            <div className="h-64 overflow-y-auto flex flex-col gap-2 px-3 py-3">
+              <AnimatePresence>
+                {messages.map((m, idx) => (
+                  <motion.div
+                    key={idx}
+                    className={`max-w-[80%] px-3 py-2 rounded-xl text-xs ${m.from === "user"
+                        ? "bg-red-500 text-white self-end rounded-br-none shadow-lg"
+                        : "bg-zinc-800 text-gray-100 self-start rounded-bl-none shadow-lg"
+                      }`}
+                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {m.text}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
 
-          <form
-            onSubmit={handleSend}
-            className="flex items-center gap-2 px-3 py-2 border-t border-zinc-800 bg-zinc-950"
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask something about Shabin..."
-              className="flex-1 bg-transparent outline-none text-xs text-white placeholder:text-gray-500"
-              data-testid="chatbot-input"
-            />
-            <motion.button
-              type="submit"
-              className="px-3 py-1 bg-red-500 hover:bg-red-600 rounded-lg text-xs font-semibold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-testid="chatbot-send"
+            <form
+              onSubmit={handleSend}
+              className="flex items-center gap-2 px-3 py-2 border-t border-zinc-800 bg-zinc-950"
             >
-              Send
-            </motion.button>
-          </form>
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask something about Shabin..."
+                className="flex-1 bg-transparent outline-none text-xs text-white placeholder:text-gray-500"
+                data-testid="chatbot-input"
+              />
+              <motion.button
+                type="submit"
+                className="px-3 py-1 bg-red-500 hover:bg-red-600 rounded-lg text-xs font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                data-testid="chatbot-send"
+              >
+                Send
+              </motion.button>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>

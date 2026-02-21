@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import Robot3D from './Robot3D';
+import SkillsShowcase from './SkillsShowcase';
 import { gsap } from 'gsap';
 
 export default function Hero() {
@@ -41,7 +41,7 @@ export default function Hero() {
           "-=0.4"
         )
         .from(
-          buttonsRef.current.children,
+          ".hero-btn",
           {
             y: 30,
             opacity: 0,
@@ -80,10 +80,19 @@ export default function Hero() {
     <section
       id="home"
       ref={heroRef}
-      className="h-screen flex items-center px-10 bg-black text-white relative overflow-hidden"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
+      className="h-screen flex items-center px-4 sm:px-10 relative overflow-hidden transition-colors duration-300"
     >
       {/* Animated gradient background with parallax */}
-      <div className="hero-bg absolute inset-0 bg-gradient-to-br from-red-950/20 via-black to-black"></div>
+      <div
+        className="hero-bg absolute inset-0"
+        style={{
+          background: "linear-gradient(to bottom right, rgba(220, 38, 38, 0.1), transparent, var(--bg-primary))",
+        }}
+      ></div>
 
       <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center relative z-10">
         {/* Left Content */}
@@ -92,7 +101,7 @@ export default function Hero() {
             ref={titleRef}
             className="text-5xl md:text-6xl font-bold mb-5"
           >
-            Hi, I'm <span className="text-red-500">Shabin George</span>
+            Hi, I'm <span style={{ color: "var(--accent)" }}>Shabin George</span>
           </h1>
 
           <div ref={subtitleRef} className="text-2xl md:text-3xl mb-6 h-20">
@@ -109,14 +118,16 @@ export default function Hero() {
               ]}
               wrapper="span"
               speed={50}
-              className="text-red-400 font-semibold"
+              className="font-semibold transition-colors duration-300"
+              style={{ color: "var(--accent-light)" }}
               repeat={Infinity}
             />
           </div>
 
           <p
             ref={descRef}
-            className="text-lg md:text-xl max-w-xl mb-10 text-gray-300 leading-relaxed"
+            className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed transition-colors duration-300"
+            style={{ color: "var(--text-secondary)" }}
           >
             A passionate Computer Science Engineer from Sri Krishna College of
             Technology. I build clean, modern, responsive websites and work on Java,
@@ -126,16 +137,27 @@ export default function Hero() {
           <div ref={buttonsRef} className="flex gap-5 flex-wrap">
             <a
               href="#projects"
-              className="px-6 py-3 bg-red-500 hover:bg-red-600 rounded-lg text-white font-semibold transition-all shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 relative overflow-hidden group"
+              className="hero-btn px-6 py-3 rounded-lg text-white font-semibold transition-all shadow-lg hover:scale-105 relative overflow-hidden group"
+              style={{
+                backgroundColor: "var(--accent)",
+              }}
               data-testid="view-work-btn"
             >
               <span className="relative z-10">View My Work</span>
-              <div className="absolute inset-0 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+              <div
+                className="absolute inset-0 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                style={{ backgroundColor: "var(--accent-dark)" }}
+              ></div>
             </a>
 
             <a
               href="#about"
-              className="px-6 py-3 border-2 border-red-500 hover:bg-red-500 rounded-lg text-white font-semibold transition-all hover:scale-105"
+              className="hero-btn px-6 py-3 rounded-lg text-white font-semibold transition-all hover:scale-105"
+              style={{
+                borderWidth: "2px",
+                borderColor: "var(--accent)",
+                backgroundColor: "transparent",
+              }}
               data-testid="about-me-btn"
             >
               About Me
@@ -143,9 +165,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right - 3D Robot */}
-        <div className="h-[500px] w-full hidden md:block">
-          <Robot3D />
+        {/* Right - Skills Showcase */}
+        <div className="hidden md:block">
+          <SkillsShowcase />
         </div>
       </div>
 
@@ -154,8 +176,17 @@ export default function Hero() {
         ref={scrollRef}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
       >
-        <div className="w-6 h-10 border-2 border-red-500 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-red-500 rounded-full mt-2"></div>
+        <div
+          className="w-6 h-10 rounded-full flex justify-center transition-colors duration-300"
+          style={{
+            borderWidth: "2px",
+            borderColor: "var(--accent)",
+          }}
+        >
+          <div
+            className="w-1 h-3 rounded-full mt-2 transition-colors duration-300"
+            style={{ backgroundColor: "var(--accent)" }}
+          ></div>
         </div>
       </div>
     </section>
