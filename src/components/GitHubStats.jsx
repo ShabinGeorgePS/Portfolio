@@ -222,52 +222,62 @@ export default function GitHubStats() {
           </motion.div>
         </div>
 
-        {/* Top Languages */}
-        {stats.topLanguages.length > 0 && (
-          <motion.div
-            ref={(el) => cardsRef.current.push(el)}
-            className="mb-16 p-8 rounded-2xl transition-colors duration-300 shadow-lg border"
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              borderColor: "var(--accent)",
-              borderOpacity: 0.3,
-              borderWidth: "1px",
-            }}
-            whileHover={{ scale: 1.02 }}
-          >
-            <h3 className="text-2xl font-bold mb-6 transition-colors duration-300" style={{ color: "var(--accent)" }}>
-              Top Languages
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {stats.topLanguages.map((lang, index) => (
-                <div key={index}>
-                  <div className="flex justify-between mb-2">
-                    <span style={{ color: "var(--text-secondary)" }} className="font-semibold">
-                      {lang.language}
-                    </span>
-                    <span style={{ color: "var(--accent)" }} className="font-bold">
-                      {lang.count} repos
-                    </span>
-                  </div>
-                  <div
-                    className="w-full h-2 rounded-full overflow-hidden"
-                    style={{ backgroundColor: "var(--bg-tertiary)" }}
-                  >
-                    <motion.div
-                      className="h-full"
-                      style={{ backgroundColor: "var(--accent)" }}
-                      initial={{ width: 0 }}
-                      animate={{
-                        width: `${(lang.count / stats.topLanguages[0].count) * 100}%`,
-                      }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                    />
-                  </div>
-                </div>
-              ))}
+        {/* Contributions Section */}
+        <motion.div
+          ref={(el) => cardsRef.current.push(el)}
+          className="mb-16 p-8 rounded-2xl transition-colors duration-300 shadow-lg border"
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            borderColor: "var(--accent)",
+            borderOpacity: 0.3,
+            borderWidth: "1px",
+          }}
+          whileHover={{ scale: 1.02 }}
+        >
+          <h3 className="text-2xl font-bold mb-6 transition-colors duration-300" style={{ color: "var(--accent)" }}>
+            GitHub Contributions
+          </h3>
+          <div className="space-y-6">
+            {/* Contribution Graph */}
+            <div className="flex justify-center">
+              <a
+                href={`https://github.com/${stats.username}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <img
+                  src={`https://ghchart.reyhan.dev/${stats.username}`}
+                  alt="GitHub Contribution Graph"
+                  className="rounded-lg max-w-full h-auto"
+                  style={{
+                    backgroundColor: "var(--bg-tertiary)",
+                    padding: "16px",
+                  }}
+                />
+              </a>
             </div>
-          </motion.div>
-        )}
+
+            {/* Alternative Text if Graph Unavailable */}
+            <div className="text-center">
+              <p style={{ color: "var(--text-secondary)" }} className="mb-4">
+                View detailed contribution activity and patterns on GitHub
+              </p>
+              <a
+                href={`https://github.com/${stats.username}?tab=contributions`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-3 rounded-lg transition-all font-semibold hover:scale-105"
+                style={{
+                  backgroundColor: "var(--accent)",
+                  color: "var(--bg-primary)",
+                }}
+              >
+                View All Contributions
+              </a>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Most Starred Repository */}
         {stats.mostStarredRepo && (
