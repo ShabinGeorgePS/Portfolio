@@ -212,23 +212,19 @@ export default function GitHubStats() {
           </h3>
           <div className="space-y-6">
             {/* Contribution Graph */}
-            <div className="flex justify-center">
-              <a
-                href={`https://github.com/${stats.username}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
-              >
-                <img
-                  src={`https://ghchart.reyhan.dev/${stats.username}`}
-                  alt="GitHub Contribution Graph"
-                  className="rounded-lg max-w-full h-auto"
-                  style={{
-                    backgroundColor: "#1a1a1a",
-                    padding: "16px",
-                  }}
-                />
-              </a>
+            <div className="flex justify-center bg-gray-950 p-4 rounded-lg overflow-x-auto min-h-48">
+              <img
+                src={`https://ghchart.reyhan.dev/${stats.username}`}
+                alt="GitHub Contribution Graph"
+                className="w-full h-auto"
+                style={{
+                  minWidth: "600px",
+                  minHeight: "180px",
+                }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
             </div>
 
             {/* Alternative Text if Graph Unavailable */}
