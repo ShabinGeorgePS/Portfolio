@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { FaEnvelope, FaFileDownload, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaEnvelope, FaFileDownload } from "react-icons/fa";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ContactForm from "./ContactForm";
@@ -12,7 +12,6 @@ export default function Contact() {
   const descRef = useRef(null);
   const cardsRef = useRef([]);
   const formRef = useRef(null);
-  const socialsRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -65,20 +64,6 @@ export default function Contact() {
         scrollTrigger: {
           trigger: formRef.current,
           start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      // Social icons animation
-      gsap.from(socialsRef.current.children, {
-        scale: 0,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: socialsRef.current,
-          start: "top 90%",
           toggleActions: "play none none reverse",
         },
       });
@@ -153,28 +138,6 @@ export default function Contact() {
         >
           <h3 className="text-2xl font-bold text-white mb-6 text-center">Send Me a Message</h3>
           <ContactForm />
-        </div>
-
-        {/* Social Links */}
-        <div ref={socialsRef} className="flex justify-center gap-6 mb-12">
-          {[
-            { icon: FaGithub, href: "https://github.com/ShabinGeorgePS", label: "GitHub" },
-            {
-              icon: FaLinkedin,
-              href: "https://www.linkedin.com/in/shabin-george-185522290",
-              label: "LinkedIn",
-            },
-          ].map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 flex items-center justify-center bg-zinc-900 border border-red-500/30 rounded-full hover:bg-red-500 hover:border-red-500 transition-all hover:scale-125 hover:rotate-12 active:scale-95"
-            >
-              <social.icon className="text-xl" />
-            </a>
-          ))}
         </div>
       </div>
     </section>
