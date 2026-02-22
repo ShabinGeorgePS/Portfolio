@@ -64,39 +64,47 @@ export default function GitHubStats() {
     return (
       <section
         id="github"
-        className="min-h-screen flex items-center justify-center px-10 py-20 transition-colors duration-300"
-        style={{
-          backgroundColor: "var(--bg-primary)",
-          color: "var(--text-primary)",
-        }}
+        className="min-h-screen flex items-center justify-center px-10 py-20 bg-black"
       >
         <div className="text-center">
-          <FaGitAlt className="text-6xl animate-spin mx-auto mb-4" style={{ color: "var(--accent)" }} />
-          <p style={{ color: "var(--text-secondary)" }}>Loading GitHub stats...</p>
+          <FaGitAlt className="text-6xl animate-spin mx-auto mb-4 text-red-500" />
+          <p className="text-white text-lg">Loading GitHub stats...</p>
         </div>
       </section>
     );
   }
 
   if (!stats) {
-    return null;
+    return (
+      <section
+        id="github"
+        className="min-h-screen flex items-center justify-center px-10 py-20 bg-black"
+      >
+        <div className="text-center">
+          <p className="text-white text-lg">Unable to load GitHub stats. Please try refreshing the page.</p>
+          <a
+            href="https://github.com/ShabinGeorgePS"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-6 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
+          >
+            Visit GitHub Profile
+          </a>
+        </div>
+      </section>
+    );
   }
 
   return (
     <section
       id="github"
       ref={sectionRef}
-      className="min-h-screen px-10 py-20 relative overflow-hidden transition-colors duration-300"
-      style={{
-        backgroundColor: "var(--bg-primary)",
-        color: "var(--text-primary)",
-      }}
+      className="min-h-screen px-10 py-20 relative overflow-hidden bg-black"
     >
       {/* Section Title */}
       <h2
         ref={titleRef}
-        className="text-4xl md:text-5xl font-bold mb-16 text-center transition-colors duration-300"
-        style={{ color: "var(--accent)" }}
+        className="text-4xl md:text-5xl font-bold mb-16 text-center text-red-400"
       >
         Open Source & GitHub
       </h2>
@@ -105,13 +113,7 @@ export default function GitHubStats() {
         {/* Profile Header */}
         <motion.div
           ref={(el) => cardsRef.current.push(el)}
-          className="mb-16 p-8 rounded-2xl transition-colors duration-300 shadow-lg border"
-          style={{
-            backgroundColor: "var(--bg-secondary)",
-            borderColor: "var(--accent)",
-            borderOpacity: 0.3,
-            borderWidth: "1px",
-          }}
+          className="mb-16 p-8 rounded-2xl shadow-lg border bg-zinc-900 border-red-500/30"
           whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col md:flex-row items-center gap-8">
@@ -120,19 +122,18 @@ export default function GitHubStats() {
               <img
                 src={stats.avatar}
                 alt={stats.name}
-                className="w-32 h-32 rounded-full border-4 object-cover"
-                style={{ borderColor: "var(--accent)" }}
+                className="w-32 h-32 rounded-full border-4 border-red-500 object-cover"
               />
             </div>
 
             {/* Info */}
             <div className="flex-grow">
-              <h3 className="text-3xl font-bold mb-2">{stats.name || stats.username}</h3>
-              <p style={{ color: "var(--text-secondary)" }} className="mb-3">
+              <h3 className="text-3xl font-bold mb-2 text-white">{stats.name || stats.username}</h3>
+              <p className="text-gray-300 mb-3">
                 @{stats.username}
               </p>
               {stats.bio && (
-                <p style={{ color: "var(--text-secondary)" }} className="mb-4 max-w-2xl">
+                <p className="text-gray-300 mb-4 max-w-2xl">
                   {stats.bio}
                 </p>
               )}
@@ -141,11 +142,7 @@ export default function GitHubStats() {
                   href={stats.blog}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all hover:scale-105"
-                  style={{
-                    backgroundColor: "var(--accent)",
-                    color: "var(--bg-primary)",
-                  }}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
                 >
                   <FaLink size={16} />
                   Visit Website
@@ -160,21 +157,15 @@ export default function GitHubStats() {
           {/* Followers Card */}
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-6 rounded-xl transition-all duration-300 shadow-md border hover:shadow-lg"
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              borderColor: "var(--accent)",
-              borderOpacity: 0.3,
-              borderWidth: "1px",
-            }}
+            className="p-6 rounded-xl shadow-md border bg-zinc-900 border-red-500/30 hover:shadow-lg transition-all"
             whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-4 mb-4">
-              <FaUsers size={24} style={{ color: "var(--accent)" }} />
-              <h4 style={{ color: "var(--text-secondary)" }}>Followers</h4>
+              <FaUsers size={24} className="text-red-500" />
+              <h4 className="text-gray-300">Followers</h4>
             </div>
-            <p className="text-4xl font-bold mb-2">{stats.followers}</p>
-            <p style={{ color: "var(--text-tertiary)" }}>
+            <p className="text-4xl font-bold mb-2 text-white">{stats.followers}</p>
+            <p className="text-gray-400">
               Following {stats.following}
             </p>
           </motion.div>
@@ -182,41 +173,29 @@ export default function GitHubStats() {
           {/* Repositories Card */}
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-6 rounded-xl transition-all duration-300 shadow-md border hover:shadow-lg"
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              borderColor: "var(--accent)",
-              borderOpacity: 0.3,
-              borderWidth: "1px",
-            }}
+            className="p-6 rounded-xl shadow-md border bg-zinc-900 border-red-500/30 hover:shadow-lg transition-all"
             whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-4 mb-4">
-              <FaGitAlt size={24} style={{ color: "var(--accent)" }} />
-              <h4 style={{ color: "var(--text-secondary)" }}>Repositories</h4>
+              <FaGitAlt size={24} className="text-red-500" />
+              <h4 className="text-gray-300">Repositories</h4>
             </div>
-            <p className="text-4xl font-bold mb-2">{stats.publicRepos}</p>
-            <p style={{ color: "var(--text-tertiary)" }}>Public repositories</p>
+            <p className="text-4xl font-bold mb-2 text-white">{stats.publicRepos}</p>
+            <p className="text-gray-400">Public repositories</p>
           </motion.div>
 
           {/* Stars Card */}
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-6 rounded-xl transition-all duration-300 shadow-md border hover:shadow-lg"
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              borderColor: "var(--accent)",
-              borderOpacity: 0.3,
-              borderWidth: "1px",
-            }}
+            className="p-6 rounded-xl shadow-md border bg-zinc-900 border-red-500/30 hover:shadow-lg transition-all"
             whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-4 mb-4">
-              <FaStar size={24} style={{ color: "var(--accent)" }} />
-              <h4 style={{ color: "var(--text-secondary)" }}>Total Stars</h4>
+              <FaStar size={24} className="text-red-500" />
+              <h4 className="text-gray-300">Total Stars</h4>
             </div>
-            <p className="text-4xl font-bold mb-2">{stats.totalStars}</p>
-            <p style={{ color: "var(--text-tertiary)" }}>
+            <p className="text-4xl font-bold mb-2 text-white">{stats.totalStars}</p>
+            <p className="text-gray-400">
               {stats.totalForks} forks
             </p>
           </motion.div>
@@ -225,16 +204,10 @@ export default function GitHubStats() {
         {/* Contributions Section */}
         <motion.div
           ref={(el) => cardsRef.current.push(el)}
-          className="mb-16 p-8 rounded-2xl transition-colors duration-300 shadow-lg border"
-          style={{
-            backgroundColor: "var(--bg-secondary)",
-            borderColor: "var(--accent)",
-            borderOpacity: 0.3,
-            borderWidth: "1px",
-          }}
+          className="mb-16 p-8 rounded-2xl shadow-lg border bg-zinc-900 border-red-500/30"
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="text-2xl font-bold mb-6 transition-colors duration-300" style={{ color: "var(--accent)" }}>
+          <h3 className="text-2xl font-bold mb-6 text-red-400">
             GitHub Contributions
           </h3>
           <div className="space-y-6">
@@ -251,7 +224,7 @@ export default function GitHubStats() {
                   alt="GitHub Contribution Graph"
                   className="rounded-lg max-w-full h-auto"
                   style={{
-                    backgroundColor: "var(--bg-tertiary)",
+                    backgroundColor: "#1a1a1a",
                     padding: "16px",
                   }}
                 />
@@ -260,18 +233,14 @@ export default function GitHubStats() {
 
             {/* Alternative Text if Graph Unavailable */}
             <div className="text-center">
-              <p style={{ color: "var(--text-secondary)" }} className="mb-4">
+              <p className="text-gray-300 mb-4">
                 View detailed contribution activity and patterns on GitHub
               </p>
               <a
                 href={`https://github.com/${stats.username}?tab=contributions`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-6 py-3 rounded-lg transition-all font-semibold hover:scale-105"
-                style={{
-                  backgroundColor: "var(--accent)",
-                  color: "var(--bg-primary)",
-                }}
+                className="inline-block px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all font-semibold"
               >
                 View All Contributions
               </a>
@@ -283,41 +252,29 @@ export default function GitHubStats() {
         {stats.mostStarredRepo && (
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-8 rounded-2xl transition-colors duration-300 shadow-lg border group hover:shadow-xl"
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              borderColor: "var(--accent)",
-              borderOpacity: 0.3,
-              borderWidth: "1px",
-            }}
+            className="p-8 rounded-2xl shadow-lg border bg-zinc-900 border-red-500/30 group hover:shadow-xl transition-all"
             whileHover={{ scale: 1.02 }}
           >
-            <h3 className="text-2xl font-bold mb-4 transition-colors duration-300" style={{ color: "var(--accent)" }}>
+            <h3 className="text-2xl font-bold mb-4 text-red-400">
               ⭐ Most Starred Repository
             </h3>
-            <h4 className="text-xl font-semibold mb-2">{stats.mostStarredRepo.name}</h4>
+            <h4 className="text-xl font-semibold mb-2 text-white">{stats.mostStarredRepo.name}</h4>
             {stats.mostStarredRepo.description && (
-              <p style={{ color: "var(--text-secondary)" }} className="mb-4">
+              <p className="text-gray-300 mb-4">
                 {stats.mostStarredRepo.description}
               </p>
             )}
             <div className="flex flex-wrap gap-4 items-center">
-              <div className="flex items-center gap-2">
-                <FaStar size={16} style={{ color: "var(--accent)" }} />
+              <div className="flex items-center gap-2 text-gray-300">
+                <FaStar size={16} className="text-red-500" />
                 <span>{stats.mostStarredRepo.stargazers_count} stars</span>
               </div>
-              <div className="flex items-center gap-2">
-                <FaCodeBranch size={16} style={{ color: "var(--accent)" }} />
+              <div className="flex items-center gap-2 text-gray-300">
+                <FaCodeBranch size={16} className="text-red-500" />
                 <span>{stats.mostStarredRepo.forks_count} forks</span>
               </div>
               {stats.mostStarredRepo.language && (
-                <span
-                  className="px-3 py-1 rounded-full text-sm font-semibold"
-                  style={{
-                    backgroundColor: "var(--accent)",
-                    color: "var(--bg-primary)",
-                  }}
-                >
+                <span className="px-3 py-1 rounded-full text-sm font-semibold bg-red-500 text-white">
                   {stats.mostStarredRepo.language}
                 </span>
               )}
@@ -325,11 +282,7 @@ export default function GitHubStats() {
                 href={stats.mostStarredRepo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto px-4 py-2 rounded-lg transition-all font-semibold hover:scale-105 flex items-center gap-2"
-                style={{
-                  backgroundColor: "var(--accent)",
-                  color: "var(--bg-primary)",
-                }}
+                className="ml-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all font-semibold flex items-center gap-2"
               >
                 <FaLink size={14} />
                 View on GitHub
