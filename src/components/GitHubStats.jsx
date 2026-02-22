@@ -211,24 +211,38 @@ export default function GitHubStats() {
             GitHub Contributions
           </h3>
           <div className="space-y-6">
-            {/* Contribution Graph */}
-            <div className="flex justify-center bg-gray-950 p-4 rounded-lg overflow-x-auto min-h-48">
-              <img
-                src={`https://ghchart.reyhan.dev/${stats.username}`}
-                alt="GitHub Contribution Graph"
-                className="w-full h-auto"
-                style={{
-                  minWidth: "600px",
-                  minHeight: "180px",
-                }}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Public Repos */}
+              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
+                <h4 className="text-lg font-semibold text-red-400 mb-2">Public Repositories</h4>
+                <p className="text-3xl font-bold text-white">{stats.publicRepos}</p>
+                <p className="text-gray-400 text-sm mt-2">Active projects on GitHub</p>
+              </div>
+
+              {/* Total Stars */}
+              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
+                <h4 className="text-lg font-semibold text-red-400 mb-2">Total Stars</h4>
+                <p className="text-3xl font-bold text-white">{stats.totalStars}</p>
+                <p className="text-gray-400 text-sm mt-2">Across all repositories</p>
+              </div>
+
+              {/* Followers */}
+              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
+                <h4 className="text-lg font-semibold text-red-400 mb-2">Followers</h4>
+                <p className="text-3xl font-bold text-white">{stats.followers}</p>
+                <p className="text-gray-400 text-sm mt-2">Community support</p>
+              </div>
+
+              {/* Total Forks */}
+              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
+                <h4 className="text-lg font-semibold text-red-400 mb-2">Total Forks</h4>
+                <p className="text-3xl font-bold text-white">{stats.totalForks}</p>
+                <p className="text-gray-400 text-sm mt-2">Project contributions</p>
+              </div>
             </div>
 
-            {/* Alternative Text if Graph Unavailable */}
-            <div className="text-center">
+            {/* Call to Action */}
+            <div className="text-center pt-6">
               <p className="text-gray-300 mb-4">
                 View detailed contribution activity and patterns on GitHub
               </p>
