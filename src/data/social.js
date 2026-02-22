@@ -11,7 +11,7 @@ export const socialLinks = [
   {
     id: "linkedin",
     icon: FaLinkedin,
-    href: "https://linkedin.com/in/shabin-george",
+    href: "https://www.linkedin.com/in/shabin-george-185522290",
     label: "LinkedIn",
     color: "hover:text-red-500",
   },
