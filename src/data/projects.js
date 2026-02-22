@@ -17,7 +17,7 @@ export const projects = [
     ],
     github: "https://github.com/dharshan-krishnan/expense-tracker",
     demo: "https://expense-tracker-wine-tau.vercel.app/",
-    image: "/assets/expense-tracker.png", // USER NOTE: Please place your attached image in public/assets/expense-tracker.png
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='350'%3E%3Crect fill='%236F4E37' width='600' height='350'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='Arial'%3EExpense Tracker%3C/text%3E%3C/svg%3E",
     imageAlt: "Expense Tracker Application",
     startDate: "2023-06",
     endDate: "2023-08",

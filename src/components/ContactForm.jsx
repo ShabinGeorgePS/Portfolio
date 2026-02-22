@@ -94,7 +94,7 @@ const ContactForm = () => {
           name="name"
           value={formData.name}
           onChange={handleInputChange}
-          placeholder="Shabin George"
+          placeholder="Name"
           disabled={isSubmitting}
           className={`w-full px-4 py-3 bg-zinc-900 border-2 rounded-lg text-white placeholder-gray-500 transition-colors focus:outline-none ${
             errors.name
@@ -191,7 +191,7 @@ const ContactForm = () => {
       </button>
 
       <p className="text-gray-500 text-xs text-center">
-        * Required fields. I'll respond to your message within 24 hours.
+        * Required fields.
       </p>
     </form>
   );

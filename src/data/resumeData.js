@@ -84,25 +84,31 @@ export const resumeData = {
   certifications: [
     {
       id: 1,
-      name: "AWS Certified Cloud Practitioner",
-      issuer: "Amazon Web Services",
-      date: "2024",
-      credentialUrl: "https://example.com",
+      name: "Introduction to Penetration Testing",
+      issuer: "Security Blue Team",
+      date: "June 15, 2025",
+      credentialId: "117131979",
+      description: "Gained foundational understanding of ethical hacking, including assessment types, scopes, and core objectives.",
+      credentialUrl: "",
     },
     {
       id: 2,
-      name: "Java Programming Specialization",
-      issuer: "Coursera",
-      date: "2023",
-      credentialUrl: "https://example.com",
+      name: "Computer Networks and Network Security",
+      issuer: "IBM (Coursera)",
+      date: "January 2, 2025",
+      description: "Covered networking fundamentals, security concepts, protocols, threat prevention, and IBM cybersecurity practices.",
+      credentialUrl: "https://coursera.org/verify/QP4KEQAH4WYT",
     },
     {
       id: 3,
-      name: "Web Development Bootcamp",
-      issuer: "Udemy",
-      date: "2023",
-      credentialUrl: "https://example.com",
+      name: "Linux: File Management for DevOps",
+      issuer: "Coursera Project Network",
+      date: "May 20, 2024",
+      description: "Hands-on project focused on Linux file system navigation, permissions, directory operations, and DevOps-oriented command-line workflows.",
+      credentialUrl: "https://coursera.org/verify/MPAAXVWCS3QE",
     },
+    
+    
   ],
 
   projects: [

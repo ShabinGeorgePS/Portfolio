@@ -62,10 +62,6 @@ export default function Footer() {
           <p className="text-gray-400 text-sm">
             © {currentYear} Shabin George. All rights reserved.
           </p>
-          <p className="text-gray-500 text-xs">
-            Crafted with <span className="text-red-500">❤</span> using React, Tailwind &
-            GSAP
-          </p>
         </div>
       </div>
     </footer>
