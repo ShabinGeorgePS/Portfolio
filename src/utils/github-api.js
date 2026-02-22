@@ -3,7 +3,7 @@
  * Uses GitHub's public REST API (no authentication required for public data)
  */
 
-const GITHUB_USERNAME = "shabin-george"; // Update this with your GitHub username
+const GITHUB_USERNAME = "ShabinGeorgePS"; // Update this with your GitHub username
 
 /**
  * Fetch GitHub user profile

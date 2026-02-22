@@ -24,6 +24,15 @@ export const initializeEmailJS = () => {
  */
 export const sendContactEmail = async (formData) => {
   try {
+    // Check if EmailJS is properly initialized
+    if (!PUBLIC_KEY) {
+      return {
+        success: false,
+        message: "Email service not configured. Please check your environment variables.",
+        error: new Error("Missing EmailJS configuration"),
+      };
+    }
+
     const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
       from_name: formData.name,
       from_email: formData.email,
@@ -40,9 +49,16 @@ export const sendContactEmail = async (formData) => {
     };
   } catch (error) {
     console.error("EmailJS error:", error);
+
+    // Provide user-friendly error messages
+    let errorMessage = "Failed to send email. Please try again.";
+    if (error.status === 404) {
+      errorMessage = "Email service not properly configured. Please contact the site owner.";
+    }
+
     return {
       success: false,
-      message: "Failed to send email. Please try again.",
+      message: errorMessage,
       error,
     };
   }
