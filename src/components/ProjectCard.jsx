@@ -19,6 +19,10 @@ const ProjectCard = ({ project }) => {
           src={project.image}
           alt={project.imageAlt || project.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          crossOrigin="anonymous"
         />
         {/* Category Badge */}
         <div className="absolute top-3 right-3">

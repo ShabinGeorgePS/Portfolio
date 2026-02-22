@@ -55,6 +55,9 @@ const LazyImage = ({
         onLoad={handleImageLoad}
         onError={handleImageError}
         loading={lazyLoad ? "lazy" : "eager"}
+        decoding="async"
+        referrerPolicy="no-referrer"
+        crossOrigin="anonymous"
       />
     </div>
   );

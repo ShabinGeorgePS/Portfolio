@@ -86,6 +86,10 @@ export default function Education() {
                 src={edu.logo}
                 alt={edu.college}
                 className="w-20 h-20 rounded-full object-cover mb-4 border-2 border-red-400 hover:rotate-12 hover:scale-110 transition-all duration-300"
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                crossOrigin="anonymous"
               />
 
               <h3 className="text-2xl font-bold text-red-300">{edu.degree}</h3>

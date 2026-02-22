@@ -123,6 +123,10 @@ export default function GitHubStats() {
                 src={stats.avatar}
                 alt={stats.name}
                 className="w-32 h-32 rounded-full border-4 border-red-500 object-cover"
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                crossOrigin="anonymous"
               />
             </div>
 

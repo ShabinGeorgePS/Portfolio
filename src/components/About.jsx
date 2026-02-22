@@ -116,6 +116,9 @@ export default function About() {
               borderWidth: "2px",
               borderOpacity: 0.3,
             }}
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
           />
         </div>
       </div>
