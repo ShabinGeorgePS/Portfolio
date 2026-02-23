@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
       root.style.setProperty("--text-primary", "#ffffff");
       root.style.setProperty("--text-secondary", "#d4d4d8");
       root.style.setProperty("--text-tertiary", "#a1a1a6");
-      root.style.setProperty("--accent", "#dc2626");
+      root.style.setProperty("--accent", "#ef4444");
       root.style.setProperty("--accent-light", "#ef4444");
       root.style.setProperty("--border", "#3f3f46");
       root.style.setProperty("--card-bg", "#18181b");
@@ -37,7 +37,7 @@ export const ThemeProvider = ({ children }) => {
       root.style.setProperty("--text-primary", "#000000");
       root.style.setProperty("--text-secondary", "#404040");
       root.style.setProperty("--text-tertiary", "#717171");
-      root.style.setProperty("--accent", "#dc2626");
+      root.style.setProperty("--accent", "#ef4444");
       root.style.setProperty("--accent-light", "#ef4444");
       root.style.setProperty("--border", "#e5e7eb");
       root.style.setProperty("--card-bg", "#f9fafb");

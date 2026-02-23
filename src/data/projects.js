@@ -1,3 +1,6 @@
+import expenseImage from "../assets/expense.png";
+import inquiryImage from "../assets/student.png";
+import votingImage from "../assets/voting.png";
 export const projects = [
   {
     id: "expense-tracker",
@@ -17,7 +20,7 @@ export const projects = [
     ],
     github: "https://github.com/dharshan-krishnan/expense-tracker",
     demo: "https://expense-tracker-wine-tau.vercel.app/",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='350'%3E%3Crect fill='%236F4E37' width='600' height='350'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='Arial'%3EExpense Tracker%3C/text%3E%3C/svg%3E",
+    image: expenseImage,
     imageAlt: "Expense Tracker Application",
     startDate: "2023-06",
     endDate: "2023-08",
@@ -39,9 +42,9 @@ export const projects = [
       "Issue tracking and resolution",
       "Admin dashboard",
     ],
-    github: "https://github.com/ShabinGeorgePS/inquiry-portal",
+    github: "https://github.com/ShabinGeorgePS/Student_inquiry_portal.git",
     demo: "#",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='350'%3E%3Crect fill='%234F46E5' width='600' height='350'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='Arial'%3EInquiry Portal%3C/text%3E%3C/svg%3E",
+    image: inquiryImage,
     imageAlt: "Inquiry Portal System",
     startDate: "2023-04",
     endDate: "2023-07",
@@ -63,9 +66,9 @@ export const projects = [
       "Duplicate vote prevention",
       "Access control and authentication",
     ],
-    github: "https://github.com/ShabinGeorgePS/online-voting-system",
+    github: "https://github.com/ShabinGeorgePS/Online-voting-system.git",
     demo: "#",
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='350'%3E%3Crect fill='%2306B6D4' width='600' height='350'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='Arial'%3EOnline Voting System%3C/text%3E%3C/svg%3E",
+    image:  votingImage,
     imageAlt: "Online Voting System",
     startDate: "2023-05",
     endDate: "2023-09",

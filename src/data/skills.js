@@ -23,13 +23,11 @@ export const skills = [
   { name: "MySQL", icon: SiMysql, category: "database", level: 85 },
   { name: "MongoDB", icon: SiMongodb, category: "database", level: 80 },
   { name: "REST API", icon: SiPostman, category: "backend", level: 88 },
-  { name: "Git", icon: SiGit, category: "tools", level: 85 },
   { name: "GitHub", icon: FaGithub, category: "tools", level: 88 },
   { name: "Docker", icon: SiDocker, category: "devops", level: 75 },
   { name: "Linux", icon: SiLinux, category: "tools", level: 80 },
   { name: "Vercel", icon: SiVercel, category: "devops", level: 85 },
   { name: "AWS (Basics)", icon: FaAws, category: "devops", level: 65 },
-  { name: "Python", icon: FaPython, category: "languages", level: 75 },
 ];
 
 // Get skills grouped by category

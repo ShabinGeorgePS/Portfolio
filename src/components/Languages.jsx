@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import Marquee from "react-fast-marquee";
 import { FaJava } from "react-icons/fa";
 import { SiCplusplus } from "react-icons/si";
+import { FaPython } from "react-icons/fa";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -14,25 +15,10 @@ export default function Languages() {
   const languages = [
     { name: "Java", icon: FaJava, desc: "Object-oriented programming, data structures" },
     { name: "C++", icon: SiCplusplus, desc: "System programming, algorithms" },
+      { name: "Python", icon: FaPython, desc: "Scripting, data analysis, machine learning" },
+
   ];
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        y: -50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
@@ -48,11 +34,12 @@ export default function Languages() {
       </h2>
 
       {/* Marquee effect */}
-      <Marquee
-        gradient={false}
-        speed={40}
-        pauseOnHover={true}
-        className="py-8"
+      <Marquee 
+      play= {false}
+        // gradient={false}
+        // speed={40}
+        // pauseOnHover={true}
+        // className="py-8"
       >
         {[...languages, ...languages, ...languages].map((lang, index) => (
           <div

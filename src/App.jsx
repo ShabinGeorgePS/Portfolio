@@ -13,8 +13,6 @@ import Education from "./components/Education";
 import ChatBot from "./components/ChatBot";
 import Contact from "./components/Contact";
 import Certifications from "./components/Certifications";
-import EnhancedCursor from "./components/EnhancedCursor";
-import FloatingParticles from "./components/FloatingParticles";
 import SmoothScroll from "./components/SmoothScroll";
 import ScrollProgress from "./components/ScrollProgress";
 import Footer from "./components/Footer";
@@ -34,14 +32,7 @@ function App() {
           }}
           className="min-h-screen relative overflow-x-hidden transition-colors duration-300"
         >
-          <style>{`
-            * {
-              cursor: none !important;
-            }
-          `}</style>
           <ScrollProgress />
-          <EnhancedCursor />
-          <FloatingParticles />
           <Navbar />
           <Hero />
           <About />
