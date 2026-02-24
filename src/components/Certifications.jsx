@@ -21,7 +21,7 @@ export default function Certifications() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -35,7 +35,7 @@ export default function Certifications() {
           scrollTrigger: {
             trigger: card,
             start: "top 85%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
           },
         });
       });
@@ -48,11 +48,16 @@ export default function Certifications() {
     <section
       id="certifications"
       ref={sectionRef}
-      className="min-h-[50vh] px-6 py-20 bg-gray-900 text-white"
+      className="min-h-[50vh] px-6 py-20 transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
     >
       <h2
         ref={titleRef}
-        className="text-4xl md:text-5xl font-bold mb-10 text-red-400 text-center"
+        className="text-4xl md:text-5xl font-bold mb-10 text-center transition-colors duration-300"
+        style={{ color: "var(--accent)" }}
       >
         Certifications
       </h2>
@@ -61,24 +66,55 @@ export default function Certifications() {
           <div
             key={cert.id}
             ref={(el) => (cardsRef.current[index] = el)}
-            className="bg-zinc-900/80 border border-red-400/20 rounded-xl p-6 hover:border-red-400/50 transition-all group hover:shadow-lg hover:shadow-red-400/10"
+            className="border rounded-xl p-6 hover:border-red-400/50 transition-all group hover:shadow-lg"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
-                <div className="bg-red-400/10 p-3 rounded-lg">
-                  <FaCertificate className="text-2xl text-red-400" />
+                <div
+                  className="p-3 rounded-lg"
+                  style={{ backgroundColor: "rgba(239,68,68,0.1)" }}
+                >
+                  <FaCertificate
+                    className="text-2xl"
+                    style={{ color: "var(--accent)" }}
+                  />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white group-hover:text-red-400 transition-colors">
+                  <h3
+                    className="text-xl font-semibold group-hover:text-red-400 transition-colors"
+                    style={{ color: "var(--text-primary)" }}
+                  >
                     {cert.name}
                   </h3>
-                  <p className="text-gray-400 text-sm mt-1">{cert.issuer}</p>
-                  <p className="text-gray-500 text-xs mt-1">{cert.date}</p>
+                  <p
+                    className="text-sm mt-1 transition-colors"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
+                    {cert.issuer}
+                  </p>
+                  <p
+                    className="text-xs mt-1 transition-colors"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
+                    {cert.date}
+                  </p>
                   {cert.description && (
-                    <p className="text-gray-400 text-sm mt-3">{cert.description}</p>
+                    <p
+                      className="text-sm mt-3 transition-colors"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      {cert.description}
+                    </p>
                   )}
                   {cert.credentialId && (
-                    <p className="text-gray-500 text-xs mt-2">
+                    <p
+                      className="text-xs mt-2 transition-colors"
+                      style={{ color: "var(--text-tertiary)" }}
+                    >
                       Certificate ID: {cert.credentialId}
                     </p>
                   )}
@@ -89,7 +125,8 @@ export default function Certifications() {
                   href={cert.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors text-sm"
+                  className="flex items-center gap-2 transition-colors text-sm hover:opacity-80"
+                  style={{ color: "var(--accent)" }}
                 >
                   <FaCheckCircle />
                   <span>Verify</span>

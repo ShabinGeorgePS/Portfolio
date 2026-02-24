@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { validateContactForm, sanitizeInput } from "../utils/validation";
 import {
-  showSuccessToast,
   showErrorToast,
   showLoadingToast,
   updateToastSuccess,
@@ -27,7 +26,6 @@ const ContactForm = () => {
       ...prev,
       [name]: sanitizeInput(value),
     }));
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -39,14 +37,12 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Rate limiting - max 1 email per 30 seconds
     const now = Date.now();
     if (now - lastSubmitTime < 30000) {
       showErrorToast("Please wait before sending another message");
       return;
     }
 
-    // Validate form
     const validation = validateContactForm(formData);
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -63,12 +59,7 @@ const ContactForm = () => {
       if (result.success) {
         setLastSubmitTime(now);
         updateToastSuccess(toastId, "Message sent successfully! I'll get back to you soon.");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
         setErrors({});
       } else {
         updateToastError(toastId, result.message || "Failed to send message. Please try again.");
@@ -81,11 +72,19 @@ const ContactForm = () => {
     }
   };
 
+  const inputClass = (hasError) =>
+    `w-full px-4 py-3 border-2 rounded-lg transition-colors focus:outline-none ${hasError ? "border-red-500 focus:border-red-500" : "focus:border-red-500"
+    }`;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl mx-auto">
       {/* Name Field */}
       <div>
-        <label htmlFor="name" className="block text-sm font-semibold text-gray-300 mb-2">
+        <label
+          htmlFor="name"
+          className="block text-sm font-semibold mb-2 transition-colors"
+          style={{ color: "var(--text-secondary)" }}
+        >
           Your Name *
         </label>
         <input
@@ -96,18 +95,23 @@ const ContactForm = () => {
           onChange={handleInputChange}
           placeholder="Name"
           disabled={isSubmitting}
-          className={`w-full px-4 py-3 bg-zinc-900 border-2 rounded-lg text-white placeholder-gray-500 transition-colors focus:outline-none ${
-            errors.name
-              ? "border-red-500 focus:border-red-500"
-              : "border-zinc-700 focus:border-red-500"
-          }`}
+          className={inputClass(errors.name)}
+          style={{
+            backgroundColor: "var(--bg-tertiary)",
+            color: "var(--text-primary)",
+            borderColor: errors.name ? undefined : "var(--border)",
+          }}
         />
         {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
       </div>
 
       {/* Email Field */}
       <div>
-        <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
+        <label
+          htmlFor="email"
+          className="block text-sm font-semibold mb-2 transition-colors"
+          style={{ color: "var(--text-secondary)" }}
+        >
           Your Email *
         </label>
         <input
@@ -118,18 +122,23 @@ const ContactForm = () => {
           onChange={handleInputChange}
           placeholder="your.email@example.com"
           disabled={isSubmitting}
-          className={`w-full px-4 py-3 bg-zinc-900 border-2 rounded-lg text-white placeholder-gray-500 transition-colors focus:outline-none ${
-            errors.email
-              ? "border-red-500 focus:border-red-500"
-              : "border-zinc-700 focus:border-red-500"
-          }`}
+          className={inputClass(errors.email)}
+          style={{
+            backgroundColor: "var(--bg-tertiary)",
+            color: "var(--text-primary)",
+            borderColor: errors.email ? undefined : "var(--border)",
+          }}
         />
         {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
       </div>
 
       {/* Subject Field */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-semibold text-gray-300 mb-2">
+        <label
+          htmlFor="subject"
+          className="block text-sm font-semibold mb-2 transition-colors"
+          style={{ color: "var(--text-secondary)" }}
+        >
           Subject *
         </label>
         <input
@@ -140,18 +149,23 @@ const ContactForm = () => {
           onChange={handleInputChange}
           placeholder="Project Collaboration"
           disabled={isSubmitting}
-          className={`w-full px-4 py-3 bg-zinc-900 border-2 rounded-lg text-white placeholder-gray-500 transition-colors focus:outline-none ${
-            errors.subject
-              ? "border-red-500 focus:border-red-500"
-              : "border-zinc-700 focus:border-red-500"
-          }`}
+          className={inputClass(errors.subject)}
+          style={{
+            backgroundColor: "var(--bg-tertiary)",
+            color: "var(--text-primary)",
+            borderColor: errors.subject ? undefined : "var(--border)",
+          }}
         />
         {errors.subject && <p className="text-red-400 text-sm mt-1">{errors.subject}</p>}
       </div>
 
       {/* Message Field */}
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-2">
+        <label
+          htmlFor="message"
+          className="block text-sm font-semibold mb-2 transition-colors"
+          style={{ color: "var(--text-secondary)" }}
+        >
           Message *
         </label>
         <textarea
@@ -162,14 +176,15 @@ const ContactForm = () => {
           placeholder="Tell me about your project or inquiry..."
           disabled={isSubmitting}
           rows="5"
-          className={`w-full px-4 py-3 bg-zinc-900 border-2 rounded-lg text-white placeholder-gray-500 transition-colors focus:outline-none resize-none ${
-            errors.message
-              ? "border-red-500 focus:border-red-500"
-              : "border-zinc-700 focus:border-red-500"
-          }`}
+          className={`${inputClass(errors.message)} resize-none`}
+          style={{
+            backgroundColor: "var(--bg-tertiary)",
+            color: "var(--text-primary)",
+            borderColor: errors.message ? undefined : "var(--border)",
+          }}
         />
         {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
-        <p className="text-gray-500 text-xs mt-1">
+        <p className="text-sm mt-1 transition-colors" style={{ color: "var(--text-tertiary)" }}>
           {formData.message.length}/5000 characters
         </p>
       </div>
@@ -190,7 +205,7 @@ const ContactForm = () => {
         )}
       </button>
 
-      <p className="text-gray-500 text-xs text-center">
+      <p className="text-xs text-center transition-colors" style={{ color: "var(--text-tertiary)" }}>
         * Required fields.
       </p>
     </form>

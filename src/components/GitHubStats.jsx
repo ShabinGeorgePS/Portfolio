@@ -38,12 +38,13 @@ export default function GitHubStats() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
+          once: true,
         },
       });
 
       // Cards stagger animation
-      gsap.from(cardsRef.current, {
+      gsap.from(cardsRef.current.filter(Boolean), {
         y: 50,
         opacity: 0,
         duration: 0.8,
@@ -52,23 +53,40 @@ export default function GitHubStats() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 70%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
+          once: true,
         },
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    // CRITICAL: After async data loads and section expands, recalculate all
+    // ScrollTrigger positions so triggers already in-view fire immediately.
+    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(refreshTimer);
+    };
   }, [stats]);
 
   if (loading) {
     return (
       <section
         id="github"
-        className="min-h-screen flex items-center justify-center px-10 py-20 bg-black"
+        className="min-h-screen flex items-center justify-center px-10 py-20 transition-colors duration-300"
+        style={{ backgroundColor: "var(--bg-primary)" }}
       >
         <div className="text-center">
-          <FaGitAlt className="text-6xl animate-spin mx-auto mb-4 text-red-500" />
-          <p className="text-white text-lg">Loading GitHub stats...</p>
+          <FaGitAlt
+            className="text-6xl animate-spin mx-auto mb-4"
+            style={{ color: "var(--accent)" }}
+          />
+          <p
+            className="text-lg transition-colors"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Loading GitHub stats...
+          </p>
         </div>
       </section>
     );
@@ -78,10 +96,16 @@ export default function GitHubStats() {
     return (
       <section
         id="github"
-        className="min-h-screen flex items-center justify-center px-10 py-20 bg-black"
+        className="min-h-screen flex items-center justify-center px-10 py-20 transition-colors duration-300"
+        style={{ backgroundColor: "var(--bg-primary)" }}
       >
         <div className="text-center">
-          <p className="text-white text-lg">Unable to load GitHub stats. Please try refreshing the page.</p>
+          <p
+            className="text-lg transition-colors"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Unable to load GitHub stats. Please try refreshing the page.
+          </p>
           <a
             href="https://github.com/ShabinGeorgePS"
             target="_blank"
@@ -99,21 +123,27 @@ export default function GitHubStats() {
     <section
       id="github"
       ref={sectionRef}
-      className="min-h-screen px-10 py-20 relative overflow-hidden bg-black"
+      className="min-h-screen px-10 py-20 relative overflow-hidden transition-colors duration-300"
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
       {/* Section Title */}
       <h2
         ref={titleRef}
-        className="text-4xl md:text-5xl font-bold mb-16 text-center text-red-400"
+        className="text-4xl md:text-5xl font-bold mb-16 text-center transition-colors duration-300"
+        style={{ color: "var(--accent)" }}
       >
-        Open Source & GitHub
+        Open Source &amp; GitHub
       </h2>
 
       <div className="max-w-6xl mx-auto">
         {/* Profile Header */}
         <motion.div
           ref={(el) => cardsRef.current.push(el)}
-          className="mb-16 p-8 rounded-2xl shadow-lg border bg-zinc-900 border-red-500/30"
+          className="mb-16 p-8 rounded-2xl shadow-lg border transition-colors duration-300"
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            borderColor: "var(--border)",
+          }}
           whileHover={{ scale: 1.02 }}
         >
           <div className="flex flex-col md:flex-row items-center gap-8">
@@ -122,7 +152,8 @@ export default function GitHubStats() {
               <img
                 src={stats.avatar}
                 alt={stats.name}
-                className="w-32 h-32 rounded-full border-4 border-red-500 object-cover"
+                className="w-32 h-32 rounded-full border-4 object-cover"
+                style={{ borderColor: "var(--accent)" }}
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
@@ -132,12 +163,23 @@ export default function GitHubStats() {
 
             {/* Info */}
             <div className="flex-grow">
-              <h3 className="text-3xl font-bold mb-2 text-white">{stats.name || stats.username}</h3>
-              <p className="text-gray-300 mb-3">
+              <h3
+                className="text-3xl font-bold mb-2 transition-colors"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {stats.name || stats.username}
+              </h3>
+              <p
+                className="mb-3 transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
                 @{stats.username}
               </p>
               {stats.bio && (
-                <p className="text-gray-300 mb-4 max-w-2xl">
+                <p
+                  className="mb-4 max-w-2xl transition-colors"
+                  style={{ color: "var(--text-secondary)" }}
+                >
                   {stats.bio}
                 </p>
               )}
@@ -161,15 +203,32 @@ export default function GitHubStats() {
           {/* Followers Card */}
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-6 rounded-xl shadow-md border bg-zinc-900 border-red-500/30 hover:shadow-lg transition-all"
+            className="p-6 rounded-xl shadow-md border hover:shadow-lg transition-all"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
             whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-4 mb-4">
-              <FaUsers size={24} className="text-red-500" />
-              <h4 className="text-gray-300">Followers</h4>
+              <FaUsers size={24} style={{ color: "var(--accent)" }} />
+              <h4
+                className="transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Followers
+              </h4>
             </div>
-            <p className="text-4xl font-bold mb-2 text-white">{stats.followers}</p>
-            <p className="text-gray-400">
+            <p
+              className="text-4xl font-bold mb-2 transition-colors"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {stats.followers}
+            </p>
+            <p
+              className="transition-colors"
+              style={{ color: "var(--text-tertiary)" }}
+            >
               Following {stats.following}
             </p>
           </motion.div>
@@ -177,29 +236,65 @@ export default function GitHubStats() {
           {/* Repositories Card */}
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-6 rounded-xl shadow-md border bg-zinc-900 border-red-500/30 hover:shadow-lg transition-all"
+            className="p-6 rounded-xl shadow-md border hover:shadow-lg transition-all"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
             whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-4 mb-4">
-              <FaGitAlt size={24} className="text-red-500" />
-              <h4 className="text-gray-300">Repositories</h4>
+              <FaGitAlt size={24} style={{ color: "var(--accent)" }} />
+              <h4
+                className="transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Repositories
+              </h4>
             </div>
-            <p className="text-4xl font-bold mb-2 text-white">{stats.publicRepos}</p>
-            <p className="text-gray-400">Public repositories</p>
+            <p
+              className="text-4xl font-bold mb-2 transition-colors"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {stats.publicRepos}
+            </p>
+            <p
+              className="transition-colors"
+              style={{ color: "var(--text-tertiary)" }}
+            >
+              Public repositories
+            </p>
           </motion.div>
 
           {/* Stars Card */}
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-6 rounded-xl shadow-md border bg-zinc-900 border-red-500/30 hover:shadow-lg transition-all"
+            className="p-6 rounded-xl shadow-md border hover:shadow-lg transition-all"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
             whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-4 mb-4">
-              <FaStar size={24} className="text-red-500" />
-              <h4 className="text-gray-300">Total Stars</h4>
+              <FaStar size={24} style={{ color: "var(--accent)" }} />
+              <h4
+                className="transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Total Stars
+              </h4>
             </div>
-            <p className="text-4xl font-bold mb-2 text-white">{stats.totalStars}</p>
-            <p className="text-gray-400">
+            <p
+              className="text-4xl font-bold mb-2 transition-colors"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {stats.totalStars}
+            </p>
+            <p
+              className="transition-colors"
+              style={{ color: "var(--text-tertiary)" }}
+            >
               {stats.totalForks} forks
             </p>
           </motion.div>
@@ -208,46 +303,140 @@ export default function GitHubStats() {
         {/* Contributions Section */}
         <motion.div
           ref={(el) => cardsRef.current.push(el)}
-          className="mb-16 p-8 rounded-2xl shadow-lg border bg-zinc-900 border-red-500/30"
+          className="mb-16 p-8 rounded-2xl shadow-lg border transition-colors duration-300"
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            borderColor: "var(--border)",
+          }}
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="text-2xl font-bold mb-6 text-red-400">
+          <h3
+            className="text-2xl font-bold mb-6 transition-colors"
+            style={{ color: "var(--accent)" }}
+          >
             GitHub Contributions
           </h3>
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Public Repos */}
-              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
-                <h4 className="text-lg font-semibold text-red-400 mb-2">Public Repositories</h4>
-                <p className="text-3xl font-bold text-white">{stats.publicRepos}</p>
-                <p className="text-gray-400 text-sm mt-2">Active projects on GitHub</p>
+              <div
+                className="p-6 rounded-lg border transition-colors"
+                style={{
+                  backgroundColor: "var(--bg-tertiary)",
+                  borderColor: "var(--border)",
+                }}
+              >
+                <h4
+                  className="text-lg font-semibold mb-2 transition-colors"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Public Repositories
+                </h4>
+                <p
+                  className="text-3xl font-bold transition-colors"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {stats.publicRepos}
+                </p>
+                <p
+                  className="text-sm mt-2 transition-colors"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Active projects on GitHub
+                </p>
               </div>
 
               {/* Total Stars */}
-              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
-                <h4 className="text-lg font-semibold text-red-400 mb-2">Total Stars</h4>
-                <p className="text-3xl font-bold text-white">{stats.totalStars}</p>
-                <p className="text-gray-400 text-sm mt-2">Across all repositories</p>
+              <div
+                className="p-6 rounded-lg border transition-colors"
+                style={{
+                  backgroundColor: "var(--bg-tertiary)",
+                  borderColor: "var(--border)",
+                }}
+              >
+                <h4
+                  className="text-lg font-semibold mb-2 transition-colors"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Total Stars
+                </h4>
+                <p
+                  className="text-3xl font-bold transition-colors"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {stats.totalStars}
+                </p>
+                <p
+                  className="text-sm mt-2 transition-colors"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Across all repositories
+                </p>
               </div>
 
               {/* Followers */}
-              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
-                <h4 className="text-lg font-semibold text-red-400 mb-2">Followers</h4>
-                <p className="text-3xl font-bold text-white">{stats.followers}</p>
-                <p className="text-gray-400 text-sm mt-2">Community support</p>
+              <div
+                className="p-6 rounded-lg border transition-colors"
+                style={{
+                  backgroundColor: "var(--bg-tertiary)",
+                  borderColor: "var(--border)",
+                }}
+              >
+                <h4
+                  className="text-lg font-semibold mb-2 transition-colors"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Followers
+                </h4>
+                <p
+                  className="text-3xl font-bold transition-colors"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {stats.followers}
+                </p>
+                <p
+                  className="text-sm mt-2 transition-colors"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Community support
+                </p>
               </div>
 
               {/* Total Forks */}
-              <div className="p-6 bg-gray-950 rounded-lg border border-red-500/30">
-                <h4 className="text-lg font-semibold text-red-400 mb-2">Total Forks</h4>
-                <p className="text-3xl font-bold text-white">{stats.totalForks}</p>
-                <p className="text-gray-400 text-sm mt-2">Project contributions</p>
+              <div
+                className="p-6 rounded-lg border transition-colors"
+                style={{
+                  backgroundColor: "var(--bg-tertiary)",
+                  borderColor: "var(--border)",
+                }}
+              >
+                <h4
+                  className="text-lg font-semibold mb-2 transition-colors"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Total Forks
+                </h4>
+                <p
+                  className="text-3xl font-bold transition-colors"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {stats.totalForks}
+                </p>
+                <p
+                  className="text-sm mt-2 transition-colors"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Project contributions
+                </p>
               </div>
             </div>
 
             {/* Call to Action */}
             <div className="text-center pt-6">
-              <p className="text-gray-300 mb-4">
+              <p
+                className="mb-4 transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
                 View detailed contribution activity and patterns on GitHub
               </p>
               <a
@@ -266,25 +455,46 @@ export default function GitHubStats() {
         {stats.mostStarredRepo && (
           <motion.div
             ref={(el) => cardsRef.current.push(el)}
-            className="p-8 rounded-2xl shadow-lg border bg-zinc-900 border-red-500/30 group hover:shadow-xl transition-all"
+            className="p-8 rounded-2xl shadow-lg border group hover:shadow-xl transition-all"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
             whileHover={{ scale: 1.02 }}
           >
-            <h3 className="text-2xl font-bold mb-4 text-red-400">
+            <h3
+              className="text-2xl font-bold mb-4 transition-colors"
+              style={{ color: "var(--accent)" }}
+            >
               ⭐ Most Starred Repository
             </h3>
-            <h4 className="text-xl font-semibold mb-2 text-white">{stats.mostStarredRepo.name}</h4>
+            <h4
+              className="text-xl font-semibold mb-2 transition-colors"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {stats.mostStarredRepo.name}
+            </h4>
             {stats.mostStarredRepo.description && (
-              <p className="text-gray-300 mb-4">
+              <p
+                className="mb-4 transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
                 {stats.mostStarredRepo.description}
               </p>
             )}
             <div className="flex flex-wrap gap-4 items-center">
-              <div className="flex items-center gap-2 text-gray-300">
-                <FaStar size={16} className="text-red-500" />
+              <div
+                className="flex items-center gap-2 transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                <FaStar size={16} style={{ color: "var(--accent)" }} />
                 <span>{stats.mostStarredRepo.stargazers_count} stars</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <FaCodeBranch size={16} className="text-red-500" />
+              <div
+                className="flex items-center gap-2 transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                <FaCodeBranch size={16} style={{ color: "var(--accent)" }} />
                 <span>{stats.mostStarredRepo.forks_count} forks</span>
               </div>
               {stats.mostStarredRepo.language && (

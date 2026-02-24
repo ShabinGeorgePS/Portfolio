@@ -6,9 +6,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Custom hook for scroll-triggered animations with GSAP
- * @param {object} fromVars - GSAP from animation variables
- * @param {object} toVars - GSAP to animation variables (includes animation properties)
- * @returns {object} ref to attach to element
  */
 export const useScrollAnimation = (fromVars = {}, toVars = {}) => {
   const elementRef = useRef(null);
@@ -28,9 +25,9 @@ export const useScrollAnimation = (fromVars = {}, toVars = {}) => {
       duration: 0.8,
       scrollTrigger: {
         trigger: elementRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
+        start: "top 85%",
+        toggleActions: "play none none none",
+        once: true,
       },
       ...toVars,
     };
@@ -40,16 +37,13 @@ export const useScrollAnimation = (fromVars = {}, toVars = {}) => {
     });
 
     return () => ctx.revert();
-  }, [fromVars, toVars]);
+  }, []);
 
   return elementRef;
 };
 
 /**
  * Custom hook for staggered scroll animations
- * @param {string} childSelector - CSS selector for child elements to stagger
- * @param {number} staggerDelay - Delay between each element animation
- * @returns {object} ref to attach to container element
  */
 export const useStaggerAnimation = (childSelector, staggerDelay = 0.1) => {
   const containerRef = useRef(null);
@@ -63,10 +57,7 @@ export const useStaggerAnimation = (childSelector, staggerDelay = 0.1) => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         children,
-        {
-          opacity: 0,
-          y: 30,
-        },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
@@ -74,9 +65,9 @@ export const useStaggerAnimation = (childSelector, staggerDelay = 0.1) => {
           stagger: staggerDelay,
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -90,8 +81,6 @@ export const useStaggerAnimation = (childSelector, staggerDelay = 0.1) => {
 
 /**
  * Custom hook for parallax effect on scroll
- * @param {number} offset - Parallax offset amount (default -50)
- * @returns {object} ref to attach to element
  */
 export const useParallax = (offset = -50) => {
   const elementRef = useRef(null);
@@ -107,7 +96,6 @@ export const useParallax = (offset = -50) => {
           start: "top center",
           end: "bottom center",
           scrub: 1,
-          markers: false,
         },
       });
     });

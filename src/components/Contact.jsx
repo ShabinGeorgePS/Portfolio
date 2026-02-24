@@ -24,7 +24,7 @@ export default function Contact() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -37,7 +37,7 @@ export default function Contact() {
         scrollTrigger: {
           trigger: descRef.current,
           start: "top 85%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -51,7 +51,7 @@ export default function Contact() {
         scrollTrigger: {
           trigger: cardsRef.current[0],
           start: "top 85%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -64,7 +64,7 @@ export default function Contact() {
         scrollTrigger: {
           trigger: formRef.current,
           start: "top 85%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
     }, sectionRef);
@@ -76,7 +76,11 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="px-4 sm:px-10 py-20 bg-gradient-to-b from-black to-gray-900 text-white relative"
+      className="px-4 sm:px-10 py-20 relative transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
     >
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -84,11 +88,19 @@ export default function Contact() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-red-400 mb-6 text-center">
+        <h2
+          ref={titleRef}
+          className="text-4xl md:text-5xl font-bold mb-6 text-center transition-colors duration-300"
+          style={{ color: "var(--accent)" }}
+        >
           Let's Connect
         </h2>
 
-        <p ref={descRef} className="text-gray-300 max-w-2xl mx-auto text-center text-lg mb-12">
+        <p
+          ref={descRef}
+          className="max-w-2xl mx-auto text-center text-lg mb-12 transition-colors duration-300"
+          style={{ color: "var(--text-secondary)" }}
+        >
           Have a question or want to work together? Feel free to reach out or download my resume.
         </p>
 
@@ -97,15 +109,28 @@ export default function Contact() {
           {/* Email Card */}
           <div
             ref={(el) => (cardsRef.current[0] = el)}
-            className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
+            className="p-6 rounded-xl border hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
           >
             <div className="flex items-center gap-3 mb-3">
-              <FaEnvelope className="text-2xl text-red-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm uppercase tracking-wide text-gray-400">Email</p>
+              <FaEnvelope
+                className="text-2xl group-hover:scale-110 transition-transform"
+                style={{ color: "var(--accent)" }}
+              />
+              <p
+                className="text-sm uppercase tracking-wide"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                Email
+              </p>
             </div>
             <a
               href="mailto:shabingeorge6705@gmail.com"
-              className="text-lg text-red-400 hover:text-red-300 transition-colors break-all"
+              className="text-lg transition-colors hover:opacity-80 break-all"
+              style={{ color: "var(--accent)" }}
             >
               shabingeorge6705@gmail.com
             </a>
@@ -114,17 +139,29 @@ export default function Contact() {
           {/* Resume Card */}
           <div
             ref={(el) => (cardsRef.current[1] = el)}
-            className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
+            className="p-6 rounded-xl border hover:border-red-500/60 transition-all group hover:scale-[1.03] hover:-translate-y-1 duration-300"
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              borderColor: "var(--border)",
+            }}
           >
             <div className="flex items-center gap-3 mb-3">
-              <FaFileDownload className="text-2xl text-red-400 group-hover:scale-110 transition-transform" />
-              <p className="text-sm uppercase tracking-wide text-gray-400">Resume</p>
+              <FaFileDownload
+                className="text-2xl group-hover:scale-110 transition-transform"
+                style={{ color: "var(--accent)" }}
+              />
+              <p
+                className="text-sm uppercase tracking-wide"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                Resume
+              </p>
             </div>
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg font-semibold transition-all shadow-lg shadow-red-500/30 hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-all shadow-lg shadow-red-500/30 hover:scale-105 active:scale-95"
             >
               View Resume (PDF)
             </a>
@@ -134,9 +171,18 @@ export default function Contact() {
         {/* Contact Form */}
         <div
           ref={formRef}
-          className="mb-12 bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 p-8 rounded-xl border border-zinc-800"
+          className="mb-12 p-8 rounded-xl border transition-colors duration-300"
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            borderColor: "var(--border)",
+          }}
         >
-          <h3 className="text-2xl font-bold text-white mb-6 text-center">Send Me a Message</h3>
+          <h3
+            className="text-2xl font-bold mb-6 text-center transition-colors duration-300"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Send Me a Message
+          </h3>
           <ContactForm />
         </div>
       </div>

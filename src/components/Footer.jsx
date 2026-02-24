@@ -8,7 +8,6 @@ export default function Footer() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Social icons animation
       if (socialsRef.current) {
         gsap.from(socialsRef.current.children, {
           scale: 0,
@@ -28,7 +27,12 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="bg-black border-t border-red-500/20 text-white py-8 px-4 sm:px-10"
+      className="border-t py-8 px-4 sm:px-10 transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        borderColor: "var(--border)",
+        color: "var(--text-primary)",
+      }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Top Section */}
@@ -43,8 +47,11 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 flex items-center justify-center bg-zinc-900 border border-red-500/30 rounded-full hover:bg-red-500 hover:border-red-500 transition-all hover:scale-125 hover:rotate-12 active:scale-95 ${social.color
-                    }`}
+                  className={`w-10 h-10 flex items-center justify-center rounded-full border hover:bg-red-500 hover:border-red-500 transition-all hover:scale-125 hover:rotate-12 active:scale-95 ${social.color}`}
+                  style={{
+                    backgroundColor: "var(--bg-secondary)",
+                    borderColor: "var(--border)",
+                  }}
                   title={social.label}
                 >
                   <Icon className="text-lg" />
@@ -55,11 +62,17 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-red-500/20 my-6" />
+        <div
+          className="border-t my-6"
+          style={{ borderColor: "var(--border)" }}
+        />
 
         {/* Bottom Section */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-          <p className="text-gray-400 text-sm">
+          <p
+            className="text-sm transition-colors"
+            style={{ color: "var(--text-tertiary)" }}
+          >
             © {currentYear} Shabin George. All rights reserved.
           </p>
         </div>

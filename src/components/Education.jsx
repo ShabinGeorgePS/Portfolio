@@ -13,7 +13,6 @@ export default function Education() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
       gsap.from(titleRef.current, {
         y: -50,
         opacity: 0,
@@ -22,11 +21,10 @@ export default function Education() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
 
-      // Timeline line draw animation
       gsap.from(timelineRef.current, {
         scaleY: 0,
         transformOrigin: "top",
@@ -35,12 +33,11 @@ export default function Education() {
         scrollTrigger: {
           trigger: timelineRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
         },
       });
 
-      // Cards stagger animation
-      cardsRef.current.forEach((card, index) => {
+      cardsRef.current.forEach((card) => {
         if (card) {
           gsap.from(card, {
             x: -100,
@@ -50,7 +47,7 @@ export default function Education() {
             scrollTrigger: {
               trigger: card,
               start: "top 85%",
-              toggleActions: "play none none reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -61,15 +58,28 @@ export default function Education() {
   }, []);
 
   return (
-    <section id="education" ref={sectionRef} className="min-h-screen px-10 py-20 bg-gray-900 text-white">
+    <section
+      id="education"
+      ref={sectionRef}
+      className="min-h-screen px-10 py-20 transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
+    >
       <h2
         ref={titleRef}
-        className="text-4xl md:text-5xl font-bold mb-10 text-red-400 text-center"
+        className="text-4xl md:text-5xl font-bold mb-10 text-center transition-colors duration-300"
+        style={{ color: "var(--accent)" }}
       >
         Education
       </h2>
 
-      <div className="relative border-l-2 border-red-400 ml-3 max-w-4xl mx-auto" ref={timelineRef}>
+      <div
+        className="relative border-l-2 ml-3 max-w-4xl mx-auto"
+        style={{ borderColor: "var(--accent)" }}
+        ref={timelineRef}
+      >
         {education.map((edu, index) => (
           <div
             key={index}
@@ -77,27 +87,57 @@ export default function Education() {
             className="mb-10 ml-6 relative"
           >
             {/* Timeline dot */}
-            <div className="w-4 h-4 bg-red-400 rounded-full absolute -left-[11px] top-1 animate-pulse" />
+            <div
+              className="w-4 h-4 rounded-full absolute -left-[11px] top-1 animate-pulse"
+              style={{ backgroundColor: "var(--accent)" }}
+            />
 
             {/* Card */}
-            <div className="bg-zinc-900/50 p-6 rounded-xl border border-red-500/20 hover:border-red-500/50 transition-all hover:scale-[1.02] hover:translate-x-2 duration-300">
+            <div
+              className="p-6 rounded-xl border hover:border-red-500/50 transition-all hover:scale-[1.02] hover:translate-x-2 duration-300"
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                borderColor: "var(--border)",
+              }}
+            >
               {/* Logo */}
               <img
                 src={edu.logo}
                 alt={edu.college}
-                className="w-20 h-20 rounded-full object-cover mb-4 border-2 border-red-400 hover:rotate-12 hover:scale-110 transition-all duration-300"
+                className="w-20 h-20 rounded-full object-cover mb-4 border-2 hover:rotate-12 hover:scale-110 transition-all duration-300"
+                style={{ borderColor: "var(--accent)" }}
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
                 crossOrigin="anonymous"
               />
 
-              <h3 className="text-2xl font-bold text-red-300">{edu.degree}</h3>
-              <p className="text-gray-300 text-lg">{edu.college}</p>
-              <p className="text-red-400 font-semibold mt-1">{edu.year}</p>
+              <h3
+                className="text-2xl font-bold transition-colors"
+                style={{ color: "var(--accent)" }}
+              >
+                {edu.degree}
+              </h3>
+              <p
+                className="text-lg transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {edu.college}
+              </p>
+              <p
+                className="font-semibold mt-1 transition-colors"
+                style={{ color: "var(--accent)" }}
+              >
+                {edu.year}
+              </p>
 
               {edu.details && (
-                <p className="text-gray-400 mt-3 leading-relaxed">{edu.details}</p>
+                <p
+                  className="mt-3 leading-relaxed transition-colors"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  {edu.details}
+                </p>
               )}
             </div>
           </div>

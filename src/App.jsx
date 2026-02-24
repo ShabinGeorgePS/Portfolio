@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { initializeEmailJS } from "./utils/emailjs-config";
 import { useTheme, ThemeProvider } from "./hooks/useTheme.jsx";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -22,6 +24,13 @@ import ScrollToTop from "./components/ScrollToTop";
 initializeEmailJS();
 
 function App() {
+  useEffect(() => {
+    // After full page layout settles (images, fonts), recalculate all
+    // ScrollTrigger positions so no animation is permanently stuck at opacity:0
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <ThemeProvider>
       <SmoothScroll>
