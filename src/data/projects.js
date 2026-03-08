@@ -1,7 +1,33 @@
+import aiStudySummarizerImage from "../assets/ai-study-summarizer.png";
 import expenseImage from "../assets/expense.png";
 import inquiryImage from "../assets/student.png";
 import votingImage from "../assets/voting.png";
 export const projects = [
+  {
+    id: "ai-study-summarizer",
+    title: "AI Study Summarizer",
+    description:
+      "An AI-powered study tool that summarizes documents, generates flashcards, and creates practice MCQs from PDFs, DOCX, URLs, and more.",
+    fullDescription:
+      "A full-stack AI-powered study summarizer that supports multi-format document uploads (PDF, DOCX, PPTX, TXT, images with OCR) and web URLs. It leverages Google Gemini AI to generate concise summaries, smart flashcards for active recall, and practice MCQs with detailed explanations. Features secure JWT authentication, a modern dark neon UI, and responsive design.",
+    tech: ["React", "Spring Boot", "PostgreSQL", "Tailwind CSS", "Gemini AI"],
+    category: "fullstack",
+    features: [
+      "Multi-format document upload (PDF, DOCX, PPTX, images)",
+      "AI-powered smart summaries",
+      "Auto-generated flashcards for active recall",
+      "Practice MCQs with explanations",
+      "Web URL content summarization",
+      "JWT-based secure authentication",
+    ],
+    github: "https://github.com/ShabinGeorgePS/ai-study-summarizer.git",
+    demo: "https://ai-study-summarizer-five.vercel.app/",
+    image: aiStudySummarizerImage,
+    imageAlt: "AI Study Summarizer Application",
+    startDate: "2025-02",
+    endDate: "2025-03",
+    featured: true,
+  },
   {
     id: "expense-tracker",
     title: "Expense Tracker",
@@ -68,7 +94,7 @@ export const projects = [
     ],
     github: "https://github.com/ShabinGeorgePS/Online-voting-system.git",
     demo: "#",
-    image:  votingImage,
+    image: votingImage,
     imageAlt: "Online Voting System",
     startDate: "2023-05",
     endDate: "2023-09",
